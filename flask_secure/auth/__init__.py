@@ -17,19 +17,19 @@ user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 db.create_all()
 db.session.commit()
 
-# Creating a default user at application start-up
-@app.before_first_request
-def create_user():
-    try:
-        user_datastore.create_user(
-            username="Default User", 
-            email='admin@local.com', 
-            password='admin@local'
-            )
-        db.session.commit()
-    except error.IntegrityError:
-        pass
-    return
+# # Creating a default user at application start-up
+# @app.before_first_request
+# def create_user():
+#     try:
+#         user_datastore.create_user(
+#             username="Default User", 
+#             email='admin@local.com', 
+#             password='admin@local'
+#             )
+#         db.session.commit()
+#     except error.IntegrityError:
+#         pass
+#     return
 
 # Creating the roles for the respective users in the system.
 try:
