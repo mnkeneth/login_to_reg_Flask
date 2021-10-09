@@ -41,6 +41,12 @@ def _after_reg_hook(sender, user, **extra):
     db.session.commit()
     return
 
+#++++++++++ Register Blueprint URLs ++++++++++
+# Import module files. 
+from flask_secure.auth.controllers import create
+
+app.register_blueprint(create)
+
 # =================== ALL CONFIGS ABOVE THE LINE. ============================
 
 # Application Home Page Redirect after Login or Registration. 
