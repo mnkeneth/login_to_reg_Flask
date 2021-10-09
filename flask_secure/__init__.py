@@ -37,6 +37,14 @@ security = Security(app, user_datastore, register_form=ExtendedRegisterForm)
 db.create_all()
 db.session.commit()
 
+# Creating a default user at application start-up
+@app.before_first_request
+def create_user():
+    user_datastore.create_user(email='admin@local.com', password='admin@local')
+    db.session.commit()
+    print(" here is create user... ")
+    return
+
 # Creating the roles for the respective users in the system.
 try:
     db.session.flush()
