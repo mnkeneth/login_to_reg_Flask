@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Log In </title>
+    <link rel="stylesheet" href="/static/css/login_user.css">
+</head>
+
+<body>
+    <!--- #TODO  Do a proper flashing button for Error Messages on the Page -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block body %}{% endblock %}
+    <section>
+        <div class="box">
+            <div class="container">
+                <div class="logo">
+                    <img src="/static/images/user.png">
+                    <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+                        {{ login_user_form.hidden_tag() }}
+                        {{ login_user_form.email(placeholder=' Email e.g: john@example.com ') }}
+                        {{ login_user_form.password(placeholder=' Password * atleast 6 characters') }}
+                        <p>
+                            {{ login_user_form.remember.label }} {{ login_user_form.remember }}
+                        </p>
+                        {{ login_user_form.submit }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
