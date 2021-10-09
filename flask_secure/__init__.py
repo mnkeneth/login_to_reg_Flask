@@ -33,38 +33,6 @@ from flask_secure.auth.forms import ExtendedRegisterForm
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore, register_form=ExtendedRegisterForm)
 
-# Build the database:
-db.create_all()
-db.session.commit()
-
-# Creating a default user at application start-up
-@app.before_first_request
-def create_user():
-    user_datastore.create_user(email='admin@local.com', password='admin@local')
-    db.session.commit()
-    print(" here is create user... ")
-    return
-
-# Creating the roles for the respective users in the system.
-try:
-    db.session.flush()
-    user_datastore.create_role(name='admin', description="Admin Right Used")
-    user_datastore.create_role(name="user", description="Normal User Roles")
-    db.session.commit()
-except error.IntegrityError:
-    db.session.rollback()
-
-# Silently Query the first user and giving them admin privileges.
-# After registration has already been done.
-# Requires re-running the application twice for changes to take effect. 
-try:
-    admin_user = User.query.filter_by(id=1).first()
-    user_role = Role.query.filter_by(id=1).first()
-    user_datastore.add_role_to_user(user=admin_user, role=user_role)
-    db.session.commit()
-except AttributeError: 
-    pass
-
 # Assigning user roles to all the other people who register.
 @user_registered.connect_via(app)
 def _after_reg_hook(sender, user, **extra):
