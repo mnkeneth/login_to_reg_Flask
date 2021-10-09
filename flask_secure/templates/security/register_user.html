@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Log In </title>
+        <title> Sign Up </title>
         <link rel="stylesheet" href="/static/css/login_user.css">
     </head>
     <body>
@@ -23,13 +23,13 @@
                 <div class="container">
                     <div class="logo">
                         <img src="/static/images/user.png">
-                        <form action="{{ url_for_security('register') }}" method="POST">                       
-                        {{ register_user_form.hidden_tag() }}
-                        {{ register_user_form.username(placeholder=' Full Name e.g: John Smith ') }}
-                        {{ register_user_form.email(placeholder=' Email e.g: john@example.com ') }}
-                        {{ register_user_form.password(placeholder='Password * atleast 6 characters') }}
-                        {{ register_user_form.password_confirm(placeholder=' Re-type Password ') }}
-                        {{ register_user_form.submit }} 
+                        <form action="{{ url_for('create.create_user') }}" method="POST">                       
+                        {{ form.hidden_tag() }}
+                        {{ form.username(placeholder=' Full Name e.g: John Smith ') }}
+                        {{ form.email(placeholder=' Email e.g: john@example.com ') }}
+                        {{ form.password(placeholder='Password * atleast 6 characters') }}
+                        {{ form.password_confirm(placeholder=' Re-type Password ') }}
+                        {{ form.submit }} 
                         </form>
                     </div>
                 </div>
