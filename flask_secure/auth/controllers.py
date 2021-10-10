@@ -41,11 +41,7 @@ def create_user():
                                     form=form)
 
         else:
-            registerable.register_user(
-                username = username,
-                email = email,
-                password=password
-                )
+            registerable.register_user(form)
             return redirect(url_for('home'))
     
     return render_template('security/register_user.html', 

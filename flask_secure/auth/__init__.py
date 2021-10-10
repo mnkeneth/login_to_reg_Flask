@@ -18,8 +18,10 @@ db.create_all()
 db.session.commit()
 
 # # Creating a default user at application start-up
+
 # @app.before_first_request
 # def create_user():
+
 #     try:
 #         user_datastore.create_user(
 #             username="Default User", 

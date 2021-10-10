@@ -6,7 +6,7 @@ Flask
 Flask-Login
 Flask-Mail
 Flask-Principal
-Flask-Security
+Flask-Security-Too
 Flask-SQLAlchemy
 Flask-WTF
 greenlet
