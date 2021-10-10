@@ -13,10 +13,6 @@ from flask_secure.auth.forms import ExtendedRegisterForm
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
-# Build the database:
-db.create_all()
-db.session.commit()
-
 # # Creating a default user at application start-up
 
 @app.before_first_request
