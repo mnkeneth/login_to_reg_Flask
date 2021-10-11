@@ -24,12 +24,13 @@ def create_user():
     # Querying for Existing email.
     """
     present_user = db.session.query(User).all()
-    if present_user is None:
+    if len(present_user) is 0:
         try:
             user_datastore.create_user(
                 username="Default User", 
                 email='admin@local.com', 
-                password='admin@local'
+                password='admin@local', 
+                fs_uniquifier='356a192b7913b04c54574d18c28d46e6395428ab'
                 )
             db.session.commit()
         except error.IntegrityError:
@@ -42,7 +43,7 @@ try:
     user_datastore.create_role(name='admin', description="Admin Right Used")
     user_datastore.create_role(name="user", description="Normal User Roles")
     db.session.commit()
-except error.IntegrityError:
+except (error.ProgrammingError, error.IntegrityError):
     db.session.rollback()
 
 # Silently Query the first user and giving them admin privileges.
@@ -53,5 +54,5 @@ try:
     user_role = Role.query.filter_by(id=1).first()
     user_datastore.add_role_to_user(user=admin_user, role=user_role)
     db.session.commit()
-except AttributeError: 
+except (error.ProgrammingError, AttributeError): 
     pass
