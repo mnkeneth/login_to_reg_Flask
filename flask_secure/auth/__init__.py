@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc as error
+from flask_migrate import Migrate
 
 # Flask_Security implementation module
 from flask_security import Security, SQLAlchemyUserDatastore, \
@@ -12,6 +13,8 @@ from flask_secure.auth.models import Role, User
 from flask_secure.auth.forms import ExtendedRegisterForm
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+
+migrate = Migrate(app, db)
 
 # # Creating a default user at application start-up
 
