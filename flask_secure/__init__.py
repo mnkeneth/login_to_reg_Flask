@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from dotenv import load_dotenv
+from flask_migrate import Migrate
 
 # Import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
@@ -25,6 +26,9 @@ db = SQLAlchemy(app)
 
 # Defining Flask Email parameter ( Not Implemented in this Application )
 mail = Mail(app)
+
+# Implementation of flask migrate
+migrate = Migrate(app, db)
 
 # Applications import config Modules. 
 from flask_secure.auth.models import Role, User
