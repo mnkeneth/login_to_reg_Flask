@@ -1,16 +1,14 @@
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc as error
 from flask_migrate import Migrate
+from hashlib import blake2s
 
 # Flask_Security implementation module
-from flask_security import Security, SQLAlchemyUserDatastore, \
-                           login_required, current_user, roles_required, user_registered
+from flask_security import SQLAlchemyUserDatastore
 
 # Within system Modules/Files. 
 from flask_secure import app, db
 # Applications import config Modules. 
 from flask_secure.auth.models import Role, User
-from flask_secure.auth.forms import ExtendedRegisterForm
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
@@ -30,7 +28,7 @@ def create_user():
                 username="Default User", 
                 email='admin@local.com', 
                 password='admin@local', 
-                fs_uniquifier='356a192b7913b04c54574d18c28d46e6395428ab'
+                fs_uniquifier=blake2s(digest_size=16).hexdigest()
                 )
             db.session.commit()
         except error.IntegrityError:
